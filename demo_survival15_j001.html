@@ -519,7 +519,7 @@
 				var chance=Math.floor(Math.random()*5);
 				
 				wood_words=["see some wood on the ground", "find some wood lying around", "finally see some wood"];
-				wood+=game.getAttribute("day");//added by j 20160521
+				wood+=game.getAttribute("day")*10;//added by j 20160521
 				//wood++;//added by j 20160521
 				//the following if/else block defines what happens when we click on explore always
 				if (chance < 1 && wood<wood_max) //bad chances
@@ -568,6 +568,7 @@
 				var food=game.getAttribute("food");
 				var food_max=game.getAttribute("maxFood");
 				
+				food+=game.getAttribute("day")*10;//added by j 20160521
 				if (typeof max_val == 'undefined')
 					var max_val=4;
 				var chance=Math.floor(Math.random()*(max_val+3));
