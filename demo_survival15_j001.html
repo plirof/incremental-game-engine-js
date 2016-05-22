@@ -780,7 +780,10 @@
 					game.addFlag("player_died");
 
 				}
-			
+				game.increaseScorePerSecond();//added by J 20160521
+				var wood=game.getAttribute("wood");//added by J 20160521
+				wood=wood+game.getScore();//added by J 20160521
+				game.setAttribute("wood",wood);//added by J 20160521			
 			
 			
 			}
