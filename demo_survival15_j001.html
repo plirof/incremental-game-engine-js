@@ -441,10 +441,11 @@
 				
 				//let's throw in some starting text to set the mood
 				log("You wake up in the middle of what seems like a forest... you don't know why you're here but you're here.");
-				game.increaseScorePerSecond();//added by J 20160521
+			/*	game.increaseScorePerSecond();//added by J 20160521
 				var wood=game.getAttribute("wood");//added by J 20160521
 				wood=wood+game.getScore();//added by J 20160521
 				game.setAttribute("wood",wood);//added by J 20160521
+				*/
 				
 			}
 			
@@ -780,9 +781,9 @@
 					game.addFlag("player_died");
 
 				}
-				game.increaseScorePerSecond();//added by J 20160521
+				//game.increaseScorePerSecond();//added by J 20160521
 				var wood=game.getAttribute("wood");//added by J 20160521
-				wood=wood+game.getScore();//added by J 20160521
+				wood=wood+10;//added by J 20160521
 				game.setAttribute("wood",wood);//added by J 20160521			
 			
 			
