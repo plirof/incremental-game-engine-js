@@ -5,7 +5,7 @@
 
 	<head>
 	
-		<title>v1.4, Yay!</title>
+		<title>v1.4, Yay! jmod 002 </title>
 		<link rel="stylesheet" href="css/incremental_demo_style.css">
 		<script src="js/jquery.js"></script>
 		<script src="js/incrementalObject.js"></script>
@@ -18,6 +18,7 @@
 			var mansionOptions={type:"Mansion", perSecondModifier: 200, cost:25000};
 			var estateOptions={type:"Estate",perSecondModifier: 1000, cost:100000};
 			var castleOptions={type:"Castle",perSecondModifier: 10000, cost:300000};
+			var skyscrapperOptions={type:"Skyscrapper",perSecondModifier: 100000, cost:600000}; //added by j 20160522
 			
 			
 			function buyHouse(housey) {
@@ -69,14 +70,14 @@
 				game.addAttribute("count_Mansion",0,"#count_Mansion");
 				game.addAttribute("count_Estate",0,"#count_Estate");
 				game.addAttribute("count_Castle",0,"#count_Castle");
-
+				game.addAttribute("count_Skyscrapper",0,"#count_Skyscrapper");//added by j 20160522
 				
 				//add the houses into the HOUSES entity set
 				game.sets.HOUSES.addEntity("Old House",shackOptions).track("cost","#house_cost_0");
 				game.sets.HOUSES.addEntity("Mansion",mansionOptions).track("cost","#house_cost_1");
 				game.sets.HOUSES.addEntity("Estate", estateOptions).track("cost","#house_cost_2");
 				game.sets.HOUSES.addEntity("Castle", castleOptions).track("cost","#house_cost_3");
-				
+				game.sets.HOUSES.addEntity("Skyscrapper", castleOptions).track("cost","#house_cost_4");//added by j 20160522
 				//game.getSet("HOUSES").getEntity("Old House").untrack("cost");// --> will stop tracking the cost in real-time.. uncomment to see how!
 				
 				//now let's add this list into our html
