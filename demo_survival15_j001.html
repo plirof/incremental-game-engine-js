@@ -519,7 +519,7 @@
 				var chance=Math.floor(Math.random()*5);
 				
 				wood_words=["see some wood on the ground", "find some wood lying around", "finally see some wood"];
-				
+				wood+=game.getAttribute("day");//added by j 20160521
 				//the following if/else block defines what happens when we click on explore always
 				if (chance < 1 && wood<wood_max) //bad chances
 					log("You find absolutely nothing...");
@@ -527,7 +527,7 @@
 				{
 					var x=wood_words[Math.floor(Math.random()*wood_words.length)];
 					wood+=chance;
-					wood+=game.getAttribute("day");//added by j 20160521
+					
 					log("You "+x+" <green>Picked up "+chance+" units of wood</green>");
 					
 					if (wood > wood_max) 
