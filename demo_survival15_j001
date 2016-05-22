@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		
+		<title>Descent (w/v1.5.1)(without google analytics</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+		<script src="js/jquery.js"></script>
+		<script src="js/incrementalObject.js"></script>
+		<script>
+		/*
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+*/
+  //ga('create', 'UA-58087326-1', 'auto');
+  //ga('send', 'pageview');
+
+</script>
+		<style>
+		
+			@font-face {
+			font-family:NewCircle;
+			src: url("css/fonts/NewCircle/New Cicle Fina.ttf");
+			}
+		
+			html {
+				position:relative;
+				min-height:100%;
+			}
+			* {
+				margin:0;
+				padding:0;
+				-o-user-select:none;
+				-webkit-user-select:none;
+				-moz-user-select:none;
+				user-select:none;
+			
+			}
+			
+			body {
+
+				font-family:monospace;
+				background-color:#f5f5f5;
+			
+			}
+			
+			#header {
+				position:relative;
+				background-color:#202020;
+				height:40px;
+				text-align:center;
+				font-size:25pt;
+				color:white;
+				background-color:#efefef;
+				color:black;
+			
+			}
+			
+			#info_bar {
+				position:relative;
+				height:80px;
+				background-color:#dfdfdf;
+			
+			}
+			
+			#info_bar .equipped {
+
+				float:right;
+				font-size:0;
+				height:80px;
+				border-left:2px solid #f0f0f0;
+				padding-top:5px;
+			}
+			
+			#info_bar .equipped li {
+				position:relative;
+				font-size:10pt;
+				display:inline-block;
+				text-align:center;
+				width:60px;
+				height:60px;
+				background-color:#fff;
+				border-left:2px solid #424242;
+				border-radius:5px;
+				margin:5px;
+				border-bottom:2px solid black;
+				float:left;
+			}
+			
+			#info_bar .stats {
+				position:absolute; 
+				left:0;
+				float:left;
+				padding:0;
+				font-size:0;
+				margin-left:10px;
+				margin-top:15px;
+				text-transform:uppercase;
+			
+			}
+			
+			#info_bar .stats li {
+				position:relative;
+				font-size:12pt;
+			
+			}
+			
+			.equipped li .item {
+				position:absolute;
+				left:0;
+				border-bottom-left-radius:4px;
+				border-bottom-right-radius:6px;
+				bottom:0;
+				background-color:black;
+				color:white;
+				width:100%;
+				margin-top:5px;
+				
+				
+			}
+			
+			/*
+			*	Stats bar
+			*/
+			
+			#stats_bar {
+				position:relative;
+				width:100%;
+				background-color:#999;
+				height:30px;
+				text-align:center;
+				padding:0;
+				margin:0;
+
+			
+			}
+			#stats_bar table {
+				position:absolute;
+				width:100%;
+				height:50px;
+				top:0;
+				border-spacing:0;
+				padding:0;
+				margin:0;
+			}
+		
+			th, td {
+				width:25%;
+				border-spacing:0;
+				padding:0;
+				margin:0;
+				
+			
+			}
+			
+			#stats_bar th {
+				
+				background-color:black;
+				color:white;
+				width:25%;
+			
+			}
+			
+			#stats_bar td {
+			
+				background-color:#525252;
+				border-right:1px solid black;
+				color:white;
+			
+			}
+			
+			/*
+			*	Content-Related
+			*/
+			#content {
+				position:relative;
+				padding:10px;
+				margin:50px;
+				text-align:center;
+			
+			}
+			.button {
+			
+				min-width:100px;
+				height:50px;
+				background-color:#333;
+				border-radius:10px;
+				text-align:center;
+				line-height:50px;
+				color:white;
+				cursor:pointer;
+				display:inline-block;
+
+				
+			
+			}
+			
+			.button:active {
+			
+				background-color:#000;
+			
+			}
+			
+			.upgrade_button {
+			
+				border:2px solid black;
+				border-radius:5px;
+				background-color:#dfdfdf;
+				color:#222;
+				padding:5px;
+				cursor:pointer;
+			
+			}
+			.upgrade_button:hover {
+			
+				background-color:#fff;
+			
+			}
+			.upgrade_button:active {
+			
+				background-color:#888;
+			
+			}
+			
+			#upgrades_list li {
+			
+				margin-top:10px;
+				margin-bottom:15px;
+				line-height:23px;
+				margin-left:22px;
+				
+			
+			}
+			#people_list li {
+			
+				margin-left:22px;
+			
+			}
+			
+			#camp_options {
+			
+				position:absolute;
+				left:0;
+				height:400px;
+				overflow:auto;
+				border:2px solid black;
+				border-radius:10px;
+				padding:10px;
+				text-align:left;
+				margin-left:10px;
+				margin-bottom:20px;
+				margin-top:0px;
+				width:45%;		
+				display:inline-block;
+				float:left;
+			}
+			
+			
+			
+			#camp_button {
+			
+				background-color:#ffaa00;
+				margin:10px;
+			
+			}
+			
+			#log {
+				position:absolute;
+				height:400px;
+				right:0;
+				float:right;
+				width:45%;
+				margin:0 auto;
+				margin-right:10px;
+				border-radius:10px;
+				background-color:black;
+				overflow-y:auto;
+				color:white;
+				line-height:24px;
+				padding-top:18px;
+				padding-left:5px;
+				font-size:10pt;
+				display:inline-block;
+				clear:both;
+				overflow-y:auto;
+			
+			}
+			
+			green {
+			
+				color:#00bb00;
+			
+			}
+			
+			yellow {
+			
+				color:#ffee00;
+			
+			}
+			
+			red {
+			
+				color:#fa0;
+			
+			}
+			
+			blue {
+			
+				color:#0af;
+			}
+			
+			dark {
+			
+				color:#555;
+			
+			}
+			
+			hr {
+				height:0;
+				border:1px solid #222;
+			
+			}
+		
+		</style>
+		
+
+		<script>
+		
+			var game;
+			
+			//this function will return an object that provides a 'type' for all entities of a particular set -> will be integrated into next version of the library
+			function DefaultType(name,x,verb) {
+				if (!game.isDefined(verb))
+					var verb="";
+				return {name:name,power:x,verb:verb};
+			
+			}
+			
+			//this function will return an object with attributes for a person
+			function DefaultPerson(name,health,max_health,happiness,hunger)
+			{
+			
+				return {name:name, health:health, max_health:max_health, happiness:happiness, hunger:hunger}; //max health is 50
+			
+			}
+			
+			//template for Upgrades
+			function DefaultUpgrade(name,description,required,effects,required_stats,log_text) //effects -> effect_on : effect_value ...eg. health: +50 ..etc -> affects ALL camp participants for simplicity
+			{
+				//additionally -> all effects values are added at the beginning of each day
+				//required is an array -> stores names of upgrades required so far to build this
+				//required_stats -> object of stats required
+				if (!game.isDefined(required_stats))
+					required_stats={wood:50};
+				
+				return {name:name,description:description,required_upgrades:required,required_stats:required_stats,effects:effects,count:0,log_text:log_text,stop:false};
+			
+			}
+			
+			
+			
+			//our initialization function - where we add our data and bind functions..etc
+			function init() {
+				
+				game=new Game(30);
+				
+				//add health/level attributes
+				game.addAttribute("current_level",1,"#current_level").addAttribute("health",10,"#current_health");//.addAttribute("max_health",10,"#max_health");
+				//Whenever we add an attribute or set an attribute, the function add/setAttribute() returns the the attribute set itself so you can continue adding attributes
+				
+				
+				//create an 'EQUIPPED' set to store equipped items in Armor, L Hand, and R. Hand and then track the names of each of these items in the indicated HTML elements
+				game.addSet("EQUIPPED").addEntity("Armor", DefaultType("Cloth",5)).track("name","#equip_armor");
+				game.getSet("EQUIPPED").addEntity("L_Hand", DefaultType("EMPTY",2)).track("name","#equip_left");
+				game.getSet("EQUIPPED").addEntity("R_Hand", DefaultType("EMPTY",2)).track("name","#equip_right");
+				
+				//let's add some resource attributes to the game as well
+				game.addAttribute("wood",0,"#wood_amount").addAttribute("metal",0,"#metal_amount").addAttribute("food",0,"#food_amount")
+				.addAttribute("maxWood",5,"#wood_amount_max").addAttribute("maxMetal",0,"#metal_amount_max").addAttribute("maxFood",5,"#food_amount_max")
+				.addAttribute("day",1);
+				
+				//we use the COMMON.track method to track day because we want to parse it in a specific way using a function - an option currently not available through the shorthand addAttribute(,,track_element) method
+				game.track("day","#day",function(text) { 
+				
+					var x=Math.floor(text);//current day without decimals
+					var remained=text%x;
+					var t="Morning";
+					if(remained==0.25)
+						t="Afternoon";
+					if(remained==0.50)
+						t="Evening";
+					if(remained==0.75)
+						t="Night";
+					
+					return x+" - "+t;
+						
+				
+			//	return 
+				});
+				
+				//let's add a set for people
+				game.addSet("PEOPLE");
+				game.getSet("PEOPLE").addEntity("Kane", DefaultPerson("Kane", 1,50, 70, 0));
+				game.getSet("PEOPLE").addEntity("Cloe", DefaultPerson("Cloe", 1,30, 40, 0));
+				game.getSet("PEOPLE").addEntity("Alice", DefaultPerson("Alice", 1,30, 50, 0));
+				
+				//let's add a set of upgrades for the camp - really simple ones
+				game.addSet("UPGRADES"); //we'll added immediate_effects and required_attributes soon enough
+				game.getSet("UPGRADES").addEntity("Fire", DefaultUpgrade("Start a fire", "Provide warmth and keep morale high at night",[], {happiness:0.005},{wood:10},"<yellow>You started a fire..</yellow>"));
+				game.getSet("UPGRADES").addEntity("Fire_Cook", DefaultUpgrade("Daily Cooking", "Use the fire to cook food everyday",["Fire"], {health:1,food:-1, happiness:0.002,wood:-1},{wood:3},"<yellow>You used a fire to cook food..</yellow>"));
+				game.getSet("UPGRADES").addEntity("Scavenging", DefaultUpgrade("Scavenging I", "Send people to scavenge for supplies",["Fire_Cook"], {wood:2,food:0.25},{wood:30,food:15},"<yellow>You told your people to go out more often to scavenge for stuff..</yellow>"));
+				game.getSet("UPGRADES").addEntity("Scavenging2", DefaultUpgrade("Hardcore Scavenging", "Find new, potentially more dangerous areas to scavenge through for items",["Scavenging"], {food:2, health:-0.5},{wood:100,food:45},"<yellow>You yell at your campmates to search for more food...</yellow>"));
+
+				game.getSet("UPGRADES").addEntity("Storage1", DefaultUpgrade("Big Storage", "ONE-TIME-ONLY: Create a new wooden bunker to store more wood and food",["Scavenging"], {maxWood:100,maxFood:100}, {wood:35},"<yellow>You created a big wooden bunker to store ..wood</yellow>"));
+				game.getSet("UPGRADES").addEntity("Storage2", DefaultUpgrade("Bigger Storage", "ONE-TIME-ONLY: Create a new wooden bunker to store even <b>more</b> wood and food",["Scavenging","Storage1"], {maxWood:200,maxFood:200,maxMetal:50}, {wood:130},"<yellow>You made another BIGGER wooden bunker...</yellow>"));
+				game.getSet("UPGRADES").addEntity("Storage3", DefaultUpgrade("Biggest Storage", "ONE-TIME-ONLY: The biggest storage you can possibly build!",["Scavenging2","Storage2"], {maxWood:500,maxFood:500,maxMetal:150}, {wood:300},"<yellow>The biggest wooden bunker you have ever made.. you must be so proud of this achievement..</yellow>"));
+				game.getSet("UPGRADES").addEntity("Scavenging3", DefaultUpgrade("Metal Scavenging", "Apparently the camp people know a place where they can find metal...", ["Storage3"], {metal:2,health:-1.5}, {food:10,wood:10},"<yellow>You order your camp minions to find stuff that can actually help..</yellow>"));
+				game.getSet("UPGRADES").addEntity("Winner", DefaultUpgrade("Airplane", "For some reason, you realize that you can build airplanes with the right resources...", ["Scavenging3"], {}, {wood:500,food:250,metal:100},""));
+				game.getSet("UPGRADES").addEntity("Fire_Cook_Better", DefaultUpgrade("Better Cooking", "Use more wood in the fire to cook better food everyday",["Fire_Cook","Storage1","Scavenging"], {health:2,food:-1, happiness:0.002,wood:-3},{wood:27},"<yellow>You used more wood in a fire to cook food..</yellow>"));
+
+				game.addSet("AVAILABLE_UPGRADES").addEntity(game.getSet("UPGRADES").getEntity("Fire")).track("required_stats","#required_Fire",displayRequiredStats);
+
+				//let's bind our 'explore_button' to a function to do stuff upon wanting to explore
+				game.addClicker("#explore_button",explore);
+				
+				//let's hide stuff we don't need just yet
+				hide("#hunt_button");
+				hide("#camp_button");
+				hide("#camp_options");
+				hide("#scavenge_button");
+				hide("#metal_scavenge_button");
+				
+				//our upgrade processor
+				game.addTimer(processUpgrades,{c:true,period:5});//process every 5 seconds
+				game.addTimer(function() { log("You should probably explore a bit..");},{c:false,period:3});
+				
+				//let's throw in some starting text to set the mood
+				log("You wake up in the middle of what seems like a forest... you don't know why you're here but you're here.");
+			
+			
+			}
+			
+			window.onload=function() {
+			
+				init();//initalize stuff
+				game.play(gameCode);//let the game loop begin!
+
+				//game.init();//we only need this line to bind an element called "#clicker" to the function - Game.increaseScorePerClick() - but we don't have
+				//one 'main' resource - we have multiple, so we can use our own clickers
+			};
+			
+			
+			//Now let's put all our game-related functions below
+			
+			//following functions show/hide elements -> will be implemented in Game() soon allowing you to lock/unlock UI
+			function show(ele,x) {
+			
+				if (typeof x === 'undefined')
+					var x=0;
+				$(ele).show(x);
+			}
+			function hide(ele) {
+			
+				if (typeof x === 'undefined')
+					var x=0;
+				$(ele).hide(x);
+			}
+			
+			var log_array=[];
+			var d=0;
+			function log(text) { //logs text in the text box
+				//Have to use a fixed number of statements because otherwise, extreme lag follows.
+				var day=Math.floor(game.getAttribute("day"));
+				if (d>=10)
+				{
+					d=10;
+					//move everything down by one to make space for this new one
+					var temp="";
+					for (var j=0;j<log_array.length-1;j++)
+					{
+						log_array[j]=log_array[j+1];
+					
+					}
+					
+				}
+				log_array[d]="<dark>[Day "+day+"]</dark> "+text+"<hr>";
+				d++;
+				
+				var text="";
+				for (var j=log_array.length-1;j>=0;j--)
+				{
+				
+					text+=log_array[j];
+				
+				}
+				$("#log").html(text);
+				//update upwards
+//				var s=document.getElementById("log");
+				
+//				s.innerHTML="<dark>[Day "+day+"]</dark> "+text+"<hr>"+s.innerHTML;
+			
+				//--The following javascript code updates downwards
+					//document.getElementById("log").innerHTML+="<br>"+document.getElementById("log").scrollHeight;
+					//document.getElementById("log").scrollTop=document.getElementById("log").scrollHeight;			
+			}
+			
+			//function for the explore_button
+			function explore() {
+				
+				//establish variables we need
+				
+				var wood=game.getAttribute("wood");
+				var wood_max=game.getAttribute("maxWood");
+				var chance=Math.floor(Math.random()*5);
+				
+				wood_words=["see some wood on the ground", "find some wood lying around", "finally see some wood"];
+				
+				//the following if/else block defines what happens when we click on explore always
+				if (chance < 1 && wood<wood_max) //bad chances
+					log("You find absolutely nothing...");
+				else if (wood<wood_max)//good chances while we can still carry wood
+				{
+					var x=wood_words[Math.floor(Math.random()*wood_words.length)];
+					wood+=chance;
+					log("You "+x+" <green>Picked up "+chance+" units of wood</green>");
+					
+					if (wood > wood_max) 
+					{
+						wood=wood_max;
+						log("<red>You can't carry anymore wood</red>");
+	
+					}
+					game.addClickerText("<green>+"+chance+"</green>");
+					
+					game.setAttribute("wood",wood);
+				}
+				else //good chances but we cannot carry anymore wood
+					log("<red>You can't carry anymore wood</red>");
+				
+				
+				//unlock hunting
+				if (wood>=wood_max && !game.checkFlag("hunting_unlocked"))
+				{
+					game.addFlag("hunting_unlocked");//flag this event so this doesn't re-execute
+					log("As you accidentally drop a wooden branch on top of a dungbeetle, killing it in the process, you realize you can use it to hit stuff. <yellow>Hunting unlocked -- You wield a wooden stick in your left hand.</yellow>");
+					game.getSet("EQUIPPED").getEntity("L_Hand").setAttribute("name","Stick").setAttribute("verb","poke");	
+					show("#hunt_button");//show the hunting button
+					game.addClicker("#hunt_button",hunt);
+					
+					
+					
+				}
+				
+
+			
+			}
+			
+			//function for the hunt_button
+			function hunt(max_val) {
+				var item=game.getSet("EQUIPPED").getEntity("L_Hand").getAttributes();
+				var food=game.getAttribute("food");
+				var food_max=game.getAttribute("maxFood");
+				
+				if (typeof max_val == 'undefined')
+					var max_val=4;
+				var chance=Math.floor(Math.random()*(max_val+3));
+				
+				if (chance <max_val && chance>0 && food < food_max)
+				{
+				
+					log("Brandishing your "+item.name+", you go around looking for stuff to "+item.verb+".");
+
+					log("You find a very tasty looking dungbeetle...<yellow>"+chance+" units of Food obtained</yellow>");
+					food+=chance;
+					if (food >food_max)
+					{	
+						food=food_max;
+						log("<red>You can't carry anymore food</red>");
+					}
+					game.addClickerText("<yellow>+"+chance+"</yellow>");
+					game.setAttribute("food",food);
+				}
+				else
+					if (food < food_max) log("You find nothing of use!");
+					else
+						log("<red>You cannot carry any more food!</red>");
+						
+				//unlock people
+				if (food>=food_max && !game.checkFlag("camp_unlocked"))
+				{
+					game.addFlag("camp_unlocked");//flag this event so this doesn't re-execute
+					log("<yellow>As you go around looking for a place to store your inventory, you see three silhouettes in the distance. Suddenly the silhouettes get closer and you find yourself face to face with two men and a woman. </yellow>");
+					log("<blue>They invite you back to their camp upon seeing the large inventory you've been carrying around.</blue>");
+					show("#camp_button");//show the hunting button
+					game.setAttribute("maxWood",50).setAttribute("maxFood",50);
+					displayPeople();//display the people in the camp options
+					game.addClicker("#camp_button",camp);
+				}
+				
+			}
+			
+			
+			
+			//displays people for camp - one-time only function
+			function displayPeople() 
+			{
+				//in this function we setup our camp options and our upgrades list
+				var p=game.getSet("PEOPLE").getEntities();
+				for (i in p)
+				{
+					var h=Math.round(p[i].getAttribute("health")*100/p[i].getAttribute("max_health"));
+					$("#people_list").append("<li><b>"+p[i].getName()+"</b> - Health: <span id='health_"+p[i].getName()+"'>"+h+"</span>% - Happiness: <b id='happiness_"+p[i].getName()+"'>"+p[i].getAttribute("happiness")+"%</li>");
+					p[i].track("happiness","#happiness_"+p[i].getName(),function(text) { return Math.floor(text);});
+					p[i].track("health","#health_"+p[i].getName());
+				}
+				
+				displayUpgrades();
+			
+			}
+			
+			function displayRequiredStats(req_stats)
+			{
+				
+				//var u=game.getSet("AVAILABLE_UPGRADES").getEntity(upgrade);
+				//get all the required stats in text
+				
+				keys=Object.keys(req_stats);
+				req_text="";
+				for (var j in keys)
+					req_text+=keys[j]+": "+req_stats[keys[j]]+" ";
+					
+				return req_text;
+						
+			
+			}
+			
+			function displayUpgrade(u)
+			{
+			
+					var x="";
+					//get all the effects in text
+					var effects=u.getAttribute("effects");
+					var keys=Object.keys(effects);
+					var eftext="<b>Effects</b>: ";
+					for (var j in keys)
+						eftext+=keys[j]+": "+effects[keys[j]]+" ";
+						
+					//get all the required stats in text
+					var req_stats=u.getAttribute("required_stats");
+					var req_text=displayRequiredStats(req_stats);
+						
+				
+					x="<li id='"+u.getName()+"_up'><b class='upgrade_button' id='"+u.getName()+"_upgrade'>"+u.getAttribute("name")+"</b><br><i>"+u.getAttribute("description")+"</i><br><sup><b>Count:</b> <i id='count_"+u.getName()+"_upgrade'>"+u.getAttribute("count")+"</i><br><b>Required:</b> <i id='required_"+u.getName()+"'>"+req_text+"</i><br>"+eftext+"</sup></li><hr style='opacity:0.2;width:50%;margin:0 auto;'>";
+
+					if (!game.checkFlag("unlocked_"+u.getName()))
+					{	
+						$("#upgrades_list").prepend(x);//add the element only once into the list
+						u.track("count","#count_"+u.getName()+"_upgrade");//track the count
+						u.track("required_stats","#required_"+u.getName(),displayRequiredStats);//track the required stat changes
+						game.addFlag("unlocked_"+u.getName());
+						game.addClicker("#"+u.getName()+"_upgrade",useUpgrade,u.getName());
+						
+						
+						
+					}
+			
+			}
+			
+			function displayUpgrades()
+			{
+			
+				//upgrades list
+				
+				var all="";
+				var u=game.getSet("AVAILABLE_UPGRADES").getEntities();
+				for (var i in u)
+				{
+					/*
+					var x="";
+					//get all the effects in text
+					var effects=u[i].getAttribute("effects");
+					var keys=Object.keys(effects);
+					var eftext="<b>Effects</b>: ";
+					for (var j in keys)
+						eftext+=keys[j]+": "+effects[keys[j]]+" ";
+						
+					//get all the required stats in text
+					var req_stats=u[i].getAttribute("required_stats");
+					var req_text=displayRequiredStats(req_stats);
+						
+				
+					x="<li id='"+u[i].getName()+"_up'><b class='upgrade_button' id='"+u[i].getName()+"_upgrade'>"+u[i].getAttribute("name")+"</b><br><i>"+u[i].getAttribute("description")+"</i><br><sup><b>Count:</b> <i id='count_"+u[i].getName()+"_upgrade'>"+u[i].getAttribute("count")+"</i><br><b>Required:</b> <i id='required_"+u[i].getName()+"'>"+req_text+"</i><br>"+eftext+"</sup></li><hr style='opacity:0.2;width:50%;margin:0 auto;'>";
+
+					if (!game.checkFlag("unlocked_"+u[i].getName()))
+					{	
+						$("#upgrades_list").prepend(x);//add the element only once into the list
+						u[i].track("count","#count_"+u[i].getName()+"_upgrade");//track the count
+						game.addFlag("unlocked_"+u[i].getName());
+						game.addClicker("#"+u[i].getName()+"_upgrade",useUpgrade,u[i].getName());
+						
+						
+						
+					}*/
+					displayUpgrade(u[i]);
+					
+					
+					
+					
+			
+					
+					
+				}
+				
+			//	if (x!=$("#upgrades_list").html()) $("#upgrades_list").html(x);//don't update the html element uselessly if there's no change
+				
+			
+			
+			}
+			
+			
+			function camp() 
+			{
+			
+				$("#camp_options").toggle(300);
+			
+			}
+			
+			//the code that is executed in the game loop always
+			function gameCode() {
+			
+				//first we need to keep checking for any unlocked upgrades
+				var u=game.getSet("UPGRADES").getEntities();
+				for (var i in u)
+				{	
+					var name=u[i].getName();
+
+					//skip if we've already unlocked it
+					if (game.getSet("AVAILABLE_UPGRADES").hasEntity(name))
+						continue;
+					
+					//check the required upgrades for this upgrade to be unlocked	
+					var flag=true;
+					var ar=u[i].getAttribute("required_upgrades");
+					//checking the array of required upgrades and seeing if the user has them in available_upgrades
+					for (var j in ar)
+					{	
+						//either user doesn't have the upgrade unlocked yet or it's unlocked but it hasn't been used yet
+						if ( !game.getSet("AVAILABLE_UPGRADES").hasEntity(ar[j]) || (game.getSet("AVAILABLE_UPGRADES").hasEntity(ar[j]) && game.getSet("AVAILABLE_UPGRADES").getEntity(ar[j]).getAttribute("count")==0) )
+						{	
+							flag=false;
+							break;
+						}
+					}
+				
+					if (flag) //unlock the upgrade
+					{	
+						game.getSet("AVAILABLE_UPGRADES").addEntity(u[i]).track("required_stats","#required_"+name,displayRequiredStats);
+						console.log("Added "+name);
+						displayUpgrade(game.getSet("AVAILABLE_UPGRADES").getEntity(name));
+					}
+				}
+				
+				
+				
+				//check if you're dead..
+				if (game.getAttribute("health")<=0 && !game.checkFlag("player_died"))
+				{
+					log("<red>You died...</red>");
+					hide("#content");
+					hide("#info_bar");
+					hide("#header");
+					game.addFlag("player_died");
+
+				}
+			
+			
+			
+			}
+			
+			
+			function useUpgrade(u_id)
+			{
+			
+			
+
+				if (!game.getSet("AVAILABLE_UPGRADES").hasEntity(u_id))
+					return false;
+					
+					
+				//now we can do stuff for this upgrade
+				var g=game.getSet("AVAILABLE_UPGRADES").getEntity(u_id);
+				
+				var flag=true;
+				
+				var changes=[]; //store the stat changes in this array, check if all stats are correct
+				
+				//check if our stats are at the correct level
+				var req_stats=g.getAttribute("required_stats");
+				var keys=Object.keys(req_stats);
+				for (var j in keys)
+				{
+				
+					var attr=game.getAttribute(keys[j]);
+					if (req_stats[keys[j]]<=attr)
+					{
+						changes[keys[j]]=attr-req_stats[keys[j]];//deduct the necessary amount;
+
+					}
+					else
+					{
+						flag=false;
+						break;
+					}
+				
+				}
+				
+				if (flag) //all stats are in order so let's process the changes
+				{
+					keys=Object.keys(changes);
+					for (var j in keys)
+					{
+					
+						game.setAttribute(keys[j],changes[keys[j]]);
+					
+					}
+				
+					var count=g.getAttribute("count")+1;
+					g.setAttribute("count",count);
+					log(g.getAttribute("log_text"));//log its action text
+					
+					//change its style so that the user knows it's unlocked
+					
+					$("#"+g.getName()+"_upgrade").css({"background-color":"#0af"});
+					
+					
+					
+					//check for any 'special upgrades'
+						if (g.getName()=="Scavenging2" && !game.checkFlag("unlocked_hardcore_hunt"))
+						{
+							
+							unlockHardcoreScavenge();
+							game.addFlag("unlocked_hardcore_hunt");
+							game.addClicker("#scavenge_button",unlockHardcoreScavenge);
+							log("<yellow>You realize that holding a few sticks together resembles a club and so you decide to use that to hit more dungbeetles at once!</yellow>");
+							game.getSet("EQUIPPED").getEntity("L_Hand").setAttribute("name","Club");
+							game.getSet("EQUIPPED").getEntity("R_Hand").setAttribute("name","Club");
+
+					
+						}
+						
+						if (g.getName()=="Scavenging3" && !game.checkFlag("unlocked_metal_hunt"))
+						{
+							unlockMetalHunt();
+							game.addFlag("unlocked_metal_hunt");
+							game.addClicker("#metal_scavenge_button",unlockMetalHunt);
+							log("<yellow>You follow your campmates to find an area filled with debris from what seemed like the remains of an airplane.</yellow>");
+						
+						}
+						
+						if (g.getName()=="Winner" && !game.checkFlag("Winner"))
+						{
+							
+							log("<green>After "+Math.floor(game.getAttribute("day"))+" days on this hellish island, you have persevered with only one purpose: Survive. And so you have....</green><red><br>Only to have your plane crash in the middle of nowhere</red><font color='#ff0000'>, runing out of food before resorting to cannibalism and then slowly, painfully dying. Congratulations!</font>");
+							game.addFlag("Winner");
+							hide("#info_bar");
+							hide("#content");
+							hide("#header");
+							
+					
+						}
+						
+						
+					
+					keys=Object.keys(req_stats);
+					
+					//let's update the cost
+					for (var j in keys)
+					{
+						
+						var newCost=Math.floor(req_stats[keys[j]]*Math.pow(1.3,count));
+						req_stats[keys[j]]=newCost;
+					
+					}
+					g.setAttribute("required_stats",req_stats);
+
+					
+				}
+			
+				//displayUpgrades();//update upgrades list
+			
+			}
+			
+			function processUpgrades() 
+			{
+				//increase day time
+				game.setAttribute("day",game.getAttribute("day")+0.25);
+				
+				
+				var g=game.getSet("AVAILABLE_UPGRADES").getEntities();
+				/*
+				var all="";
+				var x=0;
+				for (var k in g)
+				{
+					
+					console.log("Checking : "+x+". "+g[k].getName()+" stop:"+g[k].getAttribute("stop"));
+					all+=g[k].getName() + "/";
+					x++;
+					
+					
+					
+					
+					if (g[k].getAttribute("stop"))
+					{
+						console.log("^----->Continued");
+						continue;
+					}
+					
+					if (g[k].getAttribute("count")<=0)
+					{	
+						console.log("^----->Breaked");
+						break;
+
+					}
+					
+					
+					//process effects	
+				//	var effects=e.getAttribute("effects");
+					
+					
+					
+					
+				}
+				console.log(all);
+				
+				console.log("Size : "+game.getSet("AVAILABLE_UPGRADES").size());
+				*/
+				
+				
+				var x=0;
+				//var keys_g=Object.keys(g);
+				
+				for (var j in g)//var i=0;i<keys_g.length;i++)
+				{
+					x++;
+
+					console.log("Checking : "+x+". "+g[j].getName());
+					var e=g[j];
+					
+					if (e.getAttribute("stop"))
+					{
+						console.log("^----->Continued");
+						continue;
+					}
+					
+					if (e.getAttribute("count")<=0)
+					{	
+						console.log("^----->Continued Count");
+						continue;
+
+					}
+					
+					//process effects	
+					var effects=e.getAttribute("effects");
+					
+					
+					for (var j in effects)
+					{
+						
+						console.log("Processing "+j);
+						var count=e.getAttribute("count");
+						var name=j;
+						var value=effects[j]*count;
+						
+						
+							
+							
+						if (game.hasAttribute(j))
+						{
+
+							game.setAttribute(j,game.getAttribute(j)+value);
+								
+							//handle health for all campers as well
+							if (j=="health")
+							{
+								if (game.getAttribute("health") >100)game.setAttribute("health");
+								var people=game.getSet("PEOPLE").getEntities();
+								for (var k in people)
+								{
+									var cur_health=people[k].getAttribute("health")+value;
+									if (cur_health>100)
+										cur_health=100;
+									if (cur_health<0)
+										cur_health=0;
+									people[k].setAttribute("health",cur_health);
+								
+								}
+							
+							}
+							
+							if (game.getAttribute(j) < 0) game.setAttribute(j,0);
+							
+							if (j=="wood" && game.getAttribute(j) > game.getAttribute("maxWood"))game.setAttribute(j,game.getAttribute("maxWood"));
+							if (j=="food" && game.getAttribute(j) > game.getAttribute("maxFood"))game.setAttribute(j,game.getAttribute("maxFood"));
+							if (j=="metal" && game.getAttribute(j) > game.getAttribute("maxMetal"))game.setAttribute(j,game.getAttribute("maxMetal"));
+						}
+						else 
+						{	
+							if (j=="happiness")
+							{
+								var people=game.getSet("PEOPLE").getEntities();
+								for (var k in people)
+								{
+									var ha=people[k].getAttribute("happiness")+value;
+									if (ha>100)ha=100;
+									if (ha<0)ha=0;
+									people[k].setAttribute("happiness",ha);
+								
+								}
+							
+							}
+						
+						
+						}
+						console.log("Processed::" + e.getName()+":: Effect:"+j+"->"+value);
+
+					
+					}
+					
+					if (e.getAttribute("count")!=0 && (e.getName() =="Storage1" || e.getName()=="Storage2" || e.getName()=="Storage3"))
+					{	
+
+						e.setAttribute("stop",true);
+						hide("#"+e.getName()+"_up");
+					}
+				
+				
+				}
+				
+				
+				
+			
+				//other stuff to do at every day/night
+				
+				var people=game.getSet("PEOPLE").getEntities();
+				var all_dead=true;
+				for (var k in people)
+				{
+					/*
+					var food=game.getAttribute("food");
+					if (food<=0)
+					{
+						var health=people[k].getAttribute("health");
+						health-=1;
+						if (health<0) health=0;
+						people[k].setAttribute("health",health);
+					}*/
+					
+					if (people[k].getAttribute("health")>0)
+					{
+						all_dead=false;
+					}
+					
+					if (people[k].getAttribute("health")<=0 && !game.checkFlag("dead_"+people[k].getName()))
+					{
+						log("<red>"+people[k].getName()+" is dead..</red>");
+						game.addFlag("dead_"+people[k].getName());
+					}
+				
+				}
+				//check if everyone's dead
+				if (all_dead && !game.checkFlag("all_dead"))
+				{
+					
+					log("<red>Everyone is dead...</red>");
+					game.addFlag("all_dead");
+
+				
+				}
+				
+				
+			
+			
+			
+			}
+			
+			
+			//other special functions
+			
+			var shown_hardcore;
+			function unlockHardcoreScavenge() 
+			{
+				if (!shown_hardcore)
+					show("#scavenge_button");
+				shown_hardcore=1;
+				
+				hunt(15);
+			
+			
+			}
+			
+			var shown_metal;
+			
+			function unlockMetalHunt() 
+			{
+
+				if (!shown_metal)
+					show("#metal_scavenge_button");
+				shown=1;
+				//we want the user to lose some health - maybe- if he comes here due to all the metal laying around
+				
+				var chance=Math.floor(Math.random()*10);//30% chance of losing health
+				if (chance<4 && chance>0)
+				{
+					var cur_health=game.getAttribute("health");
+					cur_health-=chance;
+					if (cur_health<0)
+						cur_health=0;
+					game.setAttribute("health",cur_health);
+					var parts=["foot","hand","hands","body","chest","back"];
+					var damages=["scratch","bang", "cut", "hurt", "injure"];
+					var verbs=["searching", "scrounging", "scavenging", "looking"];
+					
+					var verb=verbs[Math.floor(Math.random()*verbs.length)];
+					var part=parts[Math.floor(Math.random()*parts.length)];
+					var damage=damages[Math.floor(Math.random()*damages.length)];
+					log("<red>While "+verb+" for metal, you "+damage+" your "+part+", losing <yellow>"+chance+"%</yellow> health in the process.</red>"); 
+				}
+				
+				chance=Math.floor(Math.random()*10);
+				var metal=game.getAttribute("metal");
+				var metal_max=game.getAttribute("maxMetal");
+				
+				var wood=game.getAttribute("wood");
+				var wood_max=game.getAttribute("maxWood");
+				
+				if (chance >4 && metal < metal_max)
+				{
+				
+					metal+=chance;
+					if (metal>metal_max) metal=metal_max;
+					game.setAttribute("metal",metal);
+					log("<blue>You find "+chance+" units of metal!</blue>");
+					game.addClickerText("<blue>+"+chance+"</blue>");
+					
+					if (chance>7 && wood < wood_max)
+					{
+						chance-=Math.floor(Math.random()*3)
+						wood+=chance;
+						if (wood>wood_max)
+							wood=wood_max;
+						game.setAttribute("wood",wood);
+						log("<green>You also find "+chance+" units of wood!</green>");
+					
+					}
+				
+				}
+				else
+					log("You don't find anything..");
+				
+			
+			
+			}
+			
+			
+			
+			
+			
+		
+		</script>
+		
+		
+		
+	</head>
+	
+	
+	<body>
+	
+		<div id="header">
+			Descent
+		</div>
+		<div id="info_bar">
+			
+			<ul class="stats">
+				<li>Health: <b id='current_health'></b>%</li>
+				<!--<li>Level: <b id='current_level'></b></li>-->
+				<li></li>
+				<li><b>Day <span id="day"></span></b></li>
+			</ul>
+			
+		
+			<ul class="equipped">
+				<li>Body <b id="equip_armor" class='item'></b></li>
+				<li>Left Hand <b id="equip_left" class='item'></b></li>
+				<li>Right Hand <b id="equip_right" class='item'></b></li>
+			</ul>
+		
+		</div>
+		<div id="stats_bar">
+			<table>
+				<tr>
+					<th colspan=2>Collected</th>
+					<td>Wood: <b id="wood_amount"></b> / <b id="wood_amount_max"></b></td>
+					<td>Food: <b id="food_amount"></b> / <b id="food_amount_max"></b></td>
+					<td>Metal: <b id="metal_amount"></b> / <b id="metal_amount_max"></b></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="content">
+		
+			<div class='button' id="explore_button">Explore</div>
+			<div class='button' id="hunt_button">Hunt</div>
+			<div class='button' id="camp_button">Camp</div>
+			<div class='button' id="scavenge_button">Scavenge</div>
+			<div class='button' id="metal_scavenge_button">Scavenge Metal</div>
+			
+			
+		</div>
+		
+		<div id="camp_options">
+				<b><u>Camp Inhabitants</u></b>
+				<ul id="people_list">
+				</ul>
+				<hr>
+				<b><u>Camp Upgrades</u></b>
+				<ul id="upgrades_list">
+				</ul>
+			</div>
+		
+		<div id="log">
+		</div>
+	
+	</body>
+	
+	
+</html>
